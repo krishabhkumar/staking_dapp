@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { ethers } from "ethers";
 // import Abi from "../contracts/Abi.json";
 import { toast } from "sonner";
@@ -9,34 +9,34 @@ const contractAdd = "";
 
 const Login = ({  }) => {
   const [walletConnected, setWalletConnected] = useState(false);
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const connectWallet = async () => {
 
-    if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
-      if (window.ethereum.chainId === "0xaa36a7") {
-        try {
-          const provider = new ethers.BrowserProvider(window.ethereum);
-          await provider.send("eth_requestAccounts", []);
-          const signer = await provider.getSigner();
-          const contract = new ethers.Contract(contractAdd, Abi.abi, signer);
-          toast.success("Metamask connected");
-          setWalletConnected(true);
-          wallet(provider, contract, signer.address);
-        //   navigate("/Dashboard"); 
-        } catch (error) {
-          toast.error(error.message);
-        }
-      } else {
-        toast.error("Please select Sepolia test network");
-      }
-    } else {
-      toast.error("Please install metamask");
-    }
+    // if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+    //   if (window.ethereum.chainId === "0xaa36a7") {
+    //     try {
+    //       const provider = new ethers.BrowserProvider(window.ethereum);
+    //       await provider.send("eth_requestAccounts", []);
+    //       const signer = await provider.getSigner();
+    //       const contract = new ethers.Contract(contractAdd, Abi.abi, signer);
+    //       toast.success("Metamask connected");
+    //       setWalletConnected(true);
+    //       wallet(provider, contract, signer.address);
+          navigate("/Dashboard"); 
+    //     } catch (error) {
+    //       toast.error(error.message);
+    //     }
+    //   } else {
+    //     toast.error("Please select Sepolia test network");
+    //   }
+    // } else {
+    //   toast.error("Please install metamask");
+    // }
   };
 
   return (
-    <div className="h-screen w-screen bg-slate-50 dark:bg-slate-800 flex items-center transition-all duration-500">
+    <div className="h-screen w-screen flex items-center">
 
         <div className="flex justify-evenly items-center h-[80%] w-screen">
             {/* This is left side */}
@@ -66,7 +66,7 @@ const Login = ({  }) => {
                         Logo
                     </div>
 
-                    <button className=" bg-[#4263EB] p-3 rounded-md shadow-2xl shadow-[#4e6dec]  transition-all duration-700 hover:shadow-[0_3px_10px_rgb(0.4,0.4,0.4,0.4)] dark:hover:shadow-cyan-500/50">
+                    <button onClick={connectWallet} className=" bg-[#4263EB] p-3 rounded-md shadow-2xl shadow-[#4e6dec] text-white transition-all duration-700 hover:shadow-[0_3px_10px_rgb(0.4,0.4,0.4,0.4)] dark:hover:shadow-cyan-500/50 cursor-pointer">
                         Connect Wallet
                     </button>
                 </div>
