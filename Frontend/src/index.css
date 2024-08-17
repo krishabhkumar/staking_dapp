@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .dark-circle {border-radius: 24px;
+    background: #1E293C;
+    box-shadow:  6px 6px 12px #182131,
+                -6px -6px 12px #243147;
+    }
+    .light-circle{
+        border-radius: 24px;
+        background: #F8FAFC;
+        box-shadow:  6px 6px 12px #c9cbcc,
+                    -6px -6px 12px #ffffff;
+    }
+}
