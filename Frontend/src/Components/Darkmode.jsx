@@ -29,7 +29,7 @@ const toggleTheme = () => {
 
     <button onClick={toggleTheme} className="flex items-center justify-center dark:dark-circle light-circle hover:shadow-inner border-[0.5px] border-slate-300 dark:border-slate-700 h-12 w-12 outline-none transition-all duration-500" >
       <span className="transition-all duration-1000">
-        {localStorage.getItem('mode') === 'dark' ? <PiSunDimFill className='text-yellow-400 text-2xl hover:scale-110 transition-all duration-1000'/> : <BsMoonStarsFill className='text-white text-xl hover:scale-105 transition-all duration-1000'/>}
+        {darkMode ? <PiSunDimFill className='text-yellow-400 text-2xl hover:scale-110 transition-all duration-1000'/> : <BsMoonStarsFill className='text-black text-xl hover:scale-105 transition-all duration-1000'/>}
       </span>
     </button>
     

@@ -60,7 +60,7 @@ const Login = ({  }) => {
 
             {/* This is right side */}
             <div className=" h-full w-[50%] p-3 flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center gap-3 p-3 bg-slate-50 dark:bg-slate-900 w-[70%] h-full rounded-2xl shadow-2xl dark:shadow-cyan-500/50 ">
+                <div className="flex flex-col items-center justify-center gap-3 p-3 bg-slate-50 dark:bg-black/40  w-[70%] h-full rounded-2xl shadow-2xl  ">
                     
                     <div>
                         Logo

@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div className='z-10 relative h-screen w-screen dark:text-white bg-slate-50 dark:bg-[#252423]  transition-all duration-500'>
+      <div className='z-10 relative h-screen w-screen dark:text-white bg-slate-50 dark:bg-black/50  transition-all duration-500'>
         <div className="absolute w-screen">
           <Darkmode />
         </div>
