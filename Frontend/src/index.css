@@ -15,4 +15,10 @@
         box-shadow:  6px 6px 12px #c9cbcc,
                     -6px -6px 12px #ffffff;
     }
+    .black-circle{
+        border-radius: 24px;
+        background: linear-gradient(145deg, #212020, #282725);
+        box-shadow:  9px 9px 13px #222120,
+                    -9px -9px 13px #282726;
+    }
 }
