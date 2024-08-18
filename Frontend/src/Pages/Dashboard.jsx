@@ -2,68 +2,105 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div className='h-screen w-screen flex items-center justify-center p-3'>
+    <div className='h-screen w-screen flex items-center justify-center p-3 z-20'>
 
       <div className=' h-[95%]  w-[70%] flex flex-col gap-10 items-center justify-center '>
 
-        <div className='border-[0.5px] shadow-lg dark:dark-circle light-circle  border-slate-300 hover:dark:border-gray-500 dark:border-black/40 transition-all duration-500 h-[20%] w-full flex justify-center items-center rounded-3xl'>
+        <div className='shadow-lg dark:bg-black/50 light-circle border-[0.5px] border-slate-300 dark:border-none transition-all duration-500 h-[20%] w-full flex justify-center items-center rounded-3xl'>
          Staking Dapp
         </div>
 
         <div className='h-[50%] w-full flex flex-col gap-5 items-center rounded-3xl'>
 
+          {/* View functions starts here */}
           <div className=' w-full h-[25%] flex items-center justify-center gap-5'>
 
-              <div className='dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 rounded-3xl h-full w-[25%] flex items-center justify-center'>
-                total staked tokens
+              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+
+                <div className=' font-semibold text-gray-500'>
+                  Total Staked Tokens
+                </div>
+
+                <div>
+                  X%
+                </div>
+
               </div>
 
-              <div className='dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 rounded-3xl h-full w-[25%] flex items-center justify-center'>
-                Reward Rate
+              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+
+
+                <div className=' font-semibold text-gray-500'>
+                  Reward Rate
+                </div>
+
+                <div>
+                  X%
+                </div>
+
               </div>
 
-              <div className='dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 rounded-3xl h-full w-[25%] flex items-center justify-center'>
-                Connected wallet balance
+              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+
+                <div className=' font-semibold text-gray-500'>
+                  Balance
+                </div>
+
+                <div>
+                  X%
+                </div>
+
               </div>
 
-              <div className='dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 rounded-3xl h-full w-[25%] flex items-center justify-center'>
-                View rewards accumilated
+              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+                
+                <div className=' font-semibold text-gray-500'>
+                  Rewards Accumilated
+                </div>
+
+                <div>
+                  X%
+                </div>
+
               </div>
 
           </div>
+          {/* View functions ends here */}
 
+          {/* State Variable functions starts here */}
           <div className='flex items-center gap-5 w-full h-[75%]'>
 
             <div className='h-full w-[50%] flex flex-col items-center gap-5 '>
-              <div className=' dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 h-[50%] w-full flex justify-center items-center '>
+              <div className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
                 Stake
               </div>
 
-              <div className=' dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 h-[50%] w-full flex justify-center items-center '>
+              <div className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
                 Claim rewards
               </div>
             </div>
 
             <div className='h-full w-[50%] flex flex-col items-center gap-5'>
 
-              <div className=' dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 h-[50%] w-full flex justify-center items-center '>
+              <div className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
                 Withdraw
               </div>
 
-              <div className=' dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 h-[50%] w-full flex justify-center items-center '>
+              <div className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
                 Mint
               </div>
 
             </div>
 
           </div>
+          {/* State Variable functions ends here */}
 
         </div>
 
-        <div className=' dark:dark-circle light-circle border-[0.5px] border-slate-300 dark:border-slate-700 h-[20%] w-full flex justify-center items-center rounded-3xl'>
+        <div className=' dark:bg-black/50 dark:shadow-none light-circle border-[0.5px] border-slate-300 dark:border-none h-[20%] w-full flex justify-center items-center rounded-3xl'>
           Social handles /description
         </div>
-
+        
       </div>
       
 

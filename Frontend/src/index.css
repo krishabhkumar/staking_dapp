@@ -4,9 +4,10 @@
 
 @layer components {
     .dark-circle {border-radius: 24px;
-    background: #1E293C;
-    box-shadow:  6px 6px 12px #182131,
-                -6px -6px 12px #243147;
+        border-radius: 24px;
+        background: black;
+        box-shadow:  20px 20px 60px #1f1f1e,
+                     -20px -20px 60px #2b2928;
     }
     .light-circle{
         border-radius: 24px;
