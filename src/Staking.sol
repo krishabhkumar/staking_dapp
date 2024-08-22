@@ -18,6 +18,7 @@ contract Staking is Ownable {
 
     // to be tested
     uint public rewardTokenThisContractOwn; // changed
+    uint256 price_of_one_token = 0.0000001 ether;
 
     uint256 public totalStakedToken;
     uint256 public rewardPerTokenStored;
@@ -29,6 +30,7 @@ contract Staking is Ownable {
     error InvalidAmount();
     error NoStakedToken();
     error NoClaimableReward();
+    error InsufficientValue();
 
     mapping(address user => uint256 amountStaked) public balances;
     mapping(address => uint256) public userRewardPerTokenPaid;
@@ -45,9 +47,13 @@ contract Staking is Ownable {
     // step-1 // stake token minting
     function mintStakeToken(
         uint256 amount
-    ) external returns (address, uint256, address, uint256) {
+    ) external payable returns (address, uint256, address, uint256) {
         if (amount == 0) {
             revert InvalidAmount();
+        }
+        uint costOfMintingToken = amount * price_of_one_token;
+        if (msg.value < costOfMintingToken) {
+            revert InsufficientValue();
         }
         // balanceOfStakeToken[msg.sender] = amount;
         stakeToken.mint(msg.sender, amount);
@@ -179,5 +185,8 @@ contract Staking is Ownable {
 
     function checkRewardBalance() public view returns (uint256) {
         return rewardToken.balanceOf(msg.sender);
+    }
+    function checkBalance() public view returns (uint256) {
+        return balances[msg.sender];
     }
 }
