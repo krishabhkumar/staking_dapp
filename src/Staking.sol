@@ -18,7 +18,7 @@ contract Staking is Ownable {
 
     // to be tested
     uint public rewardTokenThisContractOwn; // changed
-    uint256 price_of_one_token = 0.0000001 ether;
+    uint256 price_of_one_token = 10 wei;
 
     uint256 public totalStakedToken;
     uint256 public rewardPerTokenStored;
