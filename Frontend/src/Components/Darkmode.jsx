@@ -25,7 +25,7 @@ const toggleTheme = () => {
 
 
   return (
-<nav className="sticky top-0 p-2 flex justify-end  h-20 items-center w-[10%] ml-[90%]  z-10 space-x-3 ">
+<nav className="sticky top-0 p-2 flex justify-end  h-20 items-center w-fit ml-[95%]  z-10 space-x-3">
 
     <button onClick={toggleTheme} className="flex items-center justify-center dark:dark-circle light-circle hover:shadow-inner border-[0.5px] border-slate-300 dark:border-slate-700 h-12 w-12 outline-none transition-all duration-500" >
       <span className="transition-all duration-1000">
