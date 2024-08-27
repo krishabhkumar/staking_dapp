@@ -15,13 +15,9 @@ function App() {
   const settingWallet = async (provider, contract, signer, walletConn) => {
     //this function sets the provider and signer or EOA address of the client that has logged in
     setWallet({ provider: provider, contract: contract, signer: signer });
-    // console.log(walletConn)
     setWalletConnected(walletConn)
   };
 
-  // useEffect (()=>{
-  //   console.log(walletConnected)
-  // },[walletConnected])
 
 
   return (

@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-
+// Mint function 
 export const checkPriceOfOneToken = async (wallet, walletConnected) => {
   if (walletConnected) {
     try {
@@ -86,13 +86,15 @@ export const totalEarnedReward = async (wallet, walletConnected) => {
 
 // view function ends here
 
-export const mint = async (wallet, walletConnected) => {
+export const mint = async (wallet, walletConnected,mValue,mintPrice) => {
   if (walletConnected) {
-    const amount = document.querySelector("#gurkirat").value;  // msg.value , amount
+    // const amount =   // msg.value , amount
     try {
-      const tx = await wallet.contract.mintStakeToken();
+      const tx = await wallet.contract.mintStakeToken(mValue,{value:mintPrice});
       await tx.wait();
+      toast.success("Minted tokens successfully");
     } catch (error) {
+      console.error(error)
       toast.error(error.reason)
      }
   } else {
@@ -100,18 +102,14 @@ export const mint = async (wallet, walletConnected) => {
   }
 };
 
-export const stakeToken = async (wallet, walletConnected) => {
+export const stakeToken = async (wallet, walletConnected,stakeVal) => {
   if (walletConnected) {
-    const amount = document.querySelector("#gurkirat").value;
      try {
-      const tx = await wallet.contract.stake(amount);
+      const tx = await wallet.contract.stake(stakeVal);
       await tx.wait();
-
-      wallet.contract.on("TokenStaking", (staker, stakedAmount) => {
-        toast.success(`Staked ${stakedAmount} tokens successfully!`);
-      });
-      
+      toast.success("Staked tokens successfully");  
      } catch (error) {
+      console.log(error)
       toast.error(error.reason)
      }
   } else {
@@ -119,18 +117,14 @@ export const stakeToken = async (wallet, walletConnected) => {
   }
 };
 
-export const withdrawToken = async (wallet, walletConnected) => {
+export const withdrawToken = async (wallet, walletConnected,withdrawVal) => {
   if (walletConnected) {
-    const amount = document.querySelector("#gurkirat").value;
      try {
-      const tx = await wallet.contract.withdraw(amount);
+      const tx = await wallet.contract.withdraw(withdrawVal);
       await tx.wait();
-
-      wallet.contract.on("TokenWithdrawal", (staker, withdrawAmount) => {
-        toast.success(`Withdrawal ${withdrawAmount} tokens successfully!`);
-      });
-      
+      toast.success("Withdrawn tokens successfully");  
      } catch (error) {
+      console.error(error)
       toast.error(error);
      }
   } else {
@@ -143,8 +137,9 @@ export const claimReward = async (wallet, walletConnected) => {
      try {
       const tx = await wallet.contract.claimReward();
       await tx.wait();
-      
+      toast.success("Rewards Claimed successfully");  
      } catch (error) {
+      console.table(error)
       toast.error(error);
      }
   } else {
