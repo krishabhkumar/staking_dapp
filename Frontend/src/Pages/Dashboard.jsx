@@ -1,11 +1,16 @@
 import React from 'react'
-import {useState,useEffect} from "react"
-import {checkRewardRate,checkTotalStakedToken,checkBalance,checkRewardBalance} from "../utils/utils"
+import {useState,useEffect,useRef} from "react"
+import {checkRewardRate,checkTotalStakedToken,checkBalance,checkRewardBalance,mint,stakeToken,withdrawToken,claimReward} from "../utils/utils"
+import { toast } from 'sonner'
 
 const Dashboard = ({wallet,walletConnected}) => {
 
   const [viewFunc,setViewFunc] = useState({rewardR:null,totalS:null,userB:null,rewardB:null})
   const [dataFetched,setDataFetched] = useState(false)
+  const mintVal = useRef(null)
+  const sendMintPrice = useRef(null)
+  const numberOfStakes = useRef(null)
+  const withdrawAmt = useRef(null)
 
  useEffect(()=>{
   
@@ -29,6 +34,29 @@ const Dashboard = ({wallet,walletConnected}) => {
     fetchData()
   },[])
   
+  const mintTokens = async () =>{
+    event.preventDefault()
+    const mValue = mintVal.current.value
+    const mintPrice = sendMintPrice.current.value
+    await mint(wallet,walletConnected,mValue,mintPrice);
+  }
+
+  const stakeTokens = async () =>{
+    event.preventDefault()
+    const stakeVal = numberOfStakes.current.value
+    await stakeToken(wallet,walletConnected,stakeVal)
+  }
+
+  const withdrawTokens = async () =>{
+    event.preventDefault()
+    const withdrawVal = withdrawAmt.current.value
+    await withdrawToken(wallet,walletConnected,withdrawVal)
+  }
+
+  const claimRewards = async () =>{
+    event.preventDefault()
+    await claimReward(wallet,walletConnected)
+  }
 
   return (
     <div className='h-screen w-screen flex items-center justify-center p-3 z-20'>
@@ -101,26 +129,30 @@ const Dashboard = ({wallet,walletConnected}) => {
 
             <div className='h-full w-[50%] flex flex-col items-center gap-5 '>
 
-              <form className='flex flex-col items-start justify-center pl-2 dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full'>
-                <input type="number" placeholder='$0.00' className=' bg-transparent rounded-md text-2xl  h-30 outline-none remove-arrow'/>
-                <button className='ml-[70%] dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Stake</button>
-
+              <form onSubmit={mintTokens} className='flex items-start p-2 justify-start dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full'>
+                <div className='flex h-full w-full flex-col items-start p-2 gap-5'>
+                  <input ref={sendMintPrice} type="number" placeholder='Amount To Send' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
+                  <input ref={mintVal} type="number" placeholder='Amount To Mint' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
+                </div>
+                <button className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Mint</button>
               </form>
 
-              <div className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
-                Claim rewards
-              </div>
+              <form onSubmit={withdrawTokens} className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-between items-center '>
+                <input ref={withdrawAmt} type="number" placeholder='Amount To Withdraw' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
+                <button className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Withdraw</button>
+              </form>
             </div>
 
             <div className='h-full w-[50%] flex flex-col items-center gap-5'>
 
-              <div className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
-                Withdraw
-              </div>
+              <form onSubmit={stakeTokens} className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-between items-center '>
+                <input ref={numberOfStakes} type="number" placeholder='Amount To Stake' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
+                <button className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Stake</button>
+              </form>
 
-              <div className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
-                Mint
-              </div>
+              <form onSubmit={claimRewards} className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
+                <button  className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Claim Rewards</button>
+              </form>
 
             </div>
 
