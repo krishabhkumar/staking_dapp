@@ -11,7 +11,6 @@ const Login = ({ settingWallet }) => {
   //const contractAdd = process.env.REACT_APP_CONTRACT_ADDRESS;
   //console.log(contractAdd);
 
-  const [walletConnected, setWalletConnected] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,18 +23,17 @@ const Login = ({ settingWallet }) => {
           await provider.send("eth_requestAccounts", []);
           const signer = await provider.getSigner();
           const contract = new ethers.Contract(contractAdd, abi.abi, signer);
+          settingWallet(provider, contract, signer.address, true);
           toast.success("Metamask connected");
-          setWalletConnected(true);
-          settingWallet(provider, contract, signer.address);
           navigate("/Dashboard");
         } catch (error) {
-          console.error(error);
+          toast.error(error);
         }
       } else {
-        console.error("Please select Sepolia test network");
+        toast.error("Please select Sepolia test network");
       }
     } else {
-      console.error("Please install metamask");
+      toast.error("Please install metamask");
     }
   };
 

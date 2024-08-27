@@ -1,109 +1,106 @@
 import { toast } from "sonner";
 
 
-export const checkPriceOfOneToken = async ({ wallet }) => {
+export const checkPriceOfOneToken = async (wallet, walletConnected) => {
   if (walletConnected) {
     try {
       const price = await wallet.contract.priceOfOneToken();
-      toast(price);
+      return price
     } catch (error) {
-      console.error(error);
-      toast(error.reason);
+      toast.error(error.reason);
     }
   } else {
     toast("Please Connect your wallet.");
   }
 };
 
-export const checkTotalStakedToken = async ({ wallet }) => {
+export const checkTotalStakedToken = async (wallet, walletConnected) => {
   if (walletConnected) {
     try {
       const totalStakedAmount = await wallet.contract.totalStakedToken();
-      toast(totalStakedAmount);
+      return totalStakedAmount
     } catch (error) {
       console.log(error);
-      toast(error.reason);
+      toast.error(error.reason);
     }
   } else {
-    toast("Please Connect your wallet.");
+    toast.error("Please Connect your wallet.");
   }
 }; 
 
-export const checkRewardRate = async ({ wallet }) => {
+export const checkRewardRate = async ( wallet,walletConnected) => {
   if (walletConnected) {
     try {
       const rewardRate = await wallet.contract.REWARD_RATE();
-      toast(rewardRate);
+      return rewardRate
     } catch (error) {
-      console.log(error);
-      toast(error.reason);
+      toast.error(error.reason);
     }
   } else {
-    toast("Please Connect your wallet.");
+    toast.error("Please Connect your wallet.");
   }
 };
 
-export const checkBalance = async ({ wallet }) => {
+export const checkBalance = async (wallet, walletConnected) => {
     if (walletConnected) {
         try{
            const balance = await wallet.contract.checkBalance();
-           toast(balance);
+           return balance
         } catch (error) {
-          console.log(error);
-          toast(error.reason);
+          toast.error(error.reason);
         }
     }else {
-        toast("Please Connect your wallet.");
+        toast.error("Please Connect your wallet.");
     }
     
 };
 
-export const checkRewardBalance = async ({ wallet }) => {
+export const checkRewardBalance = async (wallet, walletConnected) => {
       if (walletConnected) {
         try {
           const rewardBalance = await wallet.contract.checkRewardBalance();
-          toast(rewardBalance);
+          return rewardBalance
         } catch (error) {
           console.log(error);
-          toast(error.reason);
+          toast.error(error.reason);
         }
       } else {
-        toast("Please Connect your wallet.");
+        toast.error("Please Connect your wallet.");
       }
 };
 
-export const totalEarnedReward = async ({ wallet }) => {
+export const totalEarnedReward = async (wallet, walletConnected) => {
        if (walletConnected) {
         try {
           const earnedAmount = await wallet.contract.earned();
-          toast(earnedAmount);
+          return earnedAmount
         } catch (error) {
           console.log(error);
-          toast(error.reason);
+          toast.error(error.reason);
         }
        } else {
-        toast("Please Connect your wallet.");
+        toast.error("Please Connect your wallet.");
       }
 };
 
 
 // view function ends here
 
-export const mint = async ({ wallet }) => {
+export const mint = async (wallet, walletConnected) => {
   if (walletConnected) {
     const amount = document.querySelector("#gurkirat").value;  // msg.value , amount
     try {
       const tx = await wallet.contract.mintStakeToken();
       await tx.wait();
     } catch (error) {
-      console.error(error);
+      toast.error(error.reason)
      }
   } else {
-    toast("Please Connect your wallet.");
+    toast.error("Please Connect your wallet.");
   }
 };
 
-export const stakeToken = async ({ wallet }) => {
+export const stakeToken = async (wallet, walletConnected) => {
   if (walletConnected) {
     const amount = document.querySelector("#gurkirat").value;
      try {
@@ -115,14 +112,14 @@ export const stakeToken = async ({ wallet }) => {
       });
       
      } catch (error) {
-      console.error(error);
+      toast.error(error.reason)
      }
   } else {
-    toast("Please Connect your wallet.");
+    toast.error("Please Connect your wallet.");
   }
 };
 
-export const withdrawToken = async ({ wallet }) => {
+export const withdrawToken = async (wallet, walletConnected) => {
   if (walletConnected) {
     const amount = document.querySelector("#gurkirat").value;
      try {
@@ -134,23 +131,23 @@ export const withdrawToken = async ({ wallet }) => {
       });
       
      } catch (error) {
-      console.error(error);
+      toast.error(error);
      }
   } else {
-    toast("Please Connect your wallet.");
+    toast.error("Please Connect your wallet.");
   }
 };
 
-export const claimReward = async ({ wallet }) => {
+export const claimReward = async (wallet, walletConnected) => {
   if (walletConnected) {
      try {
       const tx = await wallet.contract.claimReward();
       await tx.wait();
       
      } catch (error) {
-      console.error(error);
+      toast.error(error);
      }
   } else {
-    toast("Please Connect your wallet.");
+    toast.error("Please Connect your wallet.");
   }
 };
