@@ -15,13 +15,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Staking is Ownable {
     RewardToken rewardToken; // changed
     StakeToken stakeToken; // changed
+    
+    uint256 price_of_one_token = 10 wei; //view
 
-    uint256 price_of_one_token = 10 wei;
-
-    uint256 public totalStakedToken;
+    uint256 public totalStakedToken; //view
     uint256 public rewardPerTokenStored;
-    uint256 public lastUpdateTime;
-    uint256 public REWARD_RATE = 10;
+    uint256 public lastUpdateTime; //view
+    uint256 public REWARD_RATE = 10; //view
 
     constructor() Ownable(msg.sender) {
         rewardToken = new RewardToken (); // changed
@@ -41,11 +41,12 @@ contract Staking is Ownable {
     event RewardClaimed(address user, uint256 amount);
 
 
-    mapping(address user => uint256 amountStaked) public balances;
-    mapping(address => uint256) public userRewardPerTokenPaid;
-    mapping(address user => uint256 reward) public rewards;
+    mapping(address user => uint256 amountStaked) public balances;  //view
+    mapping(address => uint256) public userRewardPerTokenPaid;    
+    mapping(address user => uint256 reward) public rewards;   //view
 
     // step-1 // stake token minting
+    // write
     function mintStakeToken(
         uint256 amount
     ) external payable  {
@@ -95,8 +96,8 @@ contract Staking is Ownable {
             (((block.timestamp - lastUpdateTime) * REWARD_RATE * 1e18) /
                 totalStakedToken);
     }
-
-    function earned(address _user) public view returns (uint256) {
+    
+    function earned(address _user) public view returns (uint256) {  // view
         uint256 currentBalance = balances[_user];
         uint256 pastRewards = rewards[_user];
         uint256 earnedAmount = ((currentBalance *
@@ -105,7 +106,7 @@ contract Staking is Ownable {
         return earnedAmount;
     }
 
-    function stake(
+    function stake(   // write
         uint256 _amount
     ) external updateReward(msg.sender) moreThanZero(_amount) {
         balances[msg.sender] += _amount;
@@ -121,7 +122,7 @@ contract Staking is Ownable {
         emit TokenStaking(msg.sender, _amount);
     }
 
-    function withdraw(
+    function withdraw(   // write
         uint256 _amount
     ) external updateReward(msg.sender) moreThanZero(_amount) {
         balances[msg.sender] -= _amount;
@@ -134,7 +135,7 @@ contract Staking is Ownable {
         emit TokenWithdrawal(msg.sender, _amount);
     }
 
-    function claimReward()
+    function claimReward()   // write
         external
         updateReward(msg.sender)
     {
@@ -157,7 +158,7 @@ contract Staking is Ownable {
         
     }
 
-    function checkOwner() public view returns (address, address, address) {
+    function checkOwner() public view returns (address, address, address) {  // view
         return (
             address(this),
             stakeToken.checkOwnership(),
@@ -165,10 +166,10 @@ contract Staking is Ownable {
         );
     }
 
-    function checkRewardBalance() public view returns (uint256) {
+    function checkRewardBalance() public view returns (uint256) {    // view
         return rewardToken.balanceOf(msg.sender);
     }
-    function checkBalance() public view returns (uint256) {
+    function checkBalance() public view returns (uint256) {   // view
         return balances[msg.sender];
     }
 }

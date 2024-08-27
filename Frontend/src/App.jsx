@@ -31,7 +31,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login settingWallet={settingWallet} />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/Dashboard" element={<Dashboard wallet={wallet} />} />
           </Routes>
         </Router>
       </div>
