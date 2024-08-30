@@ -26,7 +26,7 @@ function App() {
       <Toaster richColors position="top-center" closeButton/>
 
       <div className="z-10 relative h-screen w-screen dark:text-white bg-slate-50 dark:bg-black  transition-all duration-500">
-        <div className="absolute w-screen">
+                <div className="absolute w-screen">
           <Darkmode />
         </div>
         <div className="">
@@ -41,7 +41,7 @@ function App() {
               path="/Dashboard"
               element={
                 <ProtectedRoute walletConnected={walletConnected}>
-                  <Dashboard wallet={wallet} walletConnected={walletConnected} />
+                  <Dashboard settingWallet={settingWallet} wallet={wallet} walletConnected={walletConnected} />
                 </ProtectedRoute>
               }
             />

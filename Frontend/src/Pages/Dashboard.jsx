@@ -1,10 +1,10 @@
 import React from 'react'
-import {useState,useEffect,useRef} from "react"
+import {useState,useRef} from "react"
 import {checkRewardRate,checkTotalStakedToken,checkBalance,checkRewardBalance,mint,stakeToken,withdrawToken,claimReward} from "../utils/utils"
 import { toast } from 'sonner'
-import ViewButton from '../Components/ViewButton'
+import Logout from '../Components/Logout'
 
-const Dashboard = ({wallet,walletConnected}) => {
+const Dashboard = ({wallet,walletConnected,settingWallet}) => {
 
   const [viewFunc,setViewFunc] = useState({rewardR:null,totalS:null,userB:null,rewardB:null})
   const [dataFetched,setDataFetched] = useState(false)
@@ -90,6 +90,10 @@ const Dashboard = ({wallet,walletConnected}) => {
 
   return (
     <div className='h-screen w-screen flex items-center justify-center p-3 z-20'>
+
+      <div className="absolute top-0 left-0">
+        <Logout settingWallet={settingWallet} />
+      </div>
 
       <div className=' h-[95%]  w-[70%] flex flex-col gap-10 items-center justify-center '>
 
