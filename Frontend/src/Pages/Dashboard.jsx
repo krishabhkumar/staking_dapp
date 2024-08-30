@@ -2,6 +2,7 @@ import React from 'react'
 import {useState,useEffect,useRef} from "react"
 import {checkRewardRate,checkTotalStakedToken,checkBalance,checkRewardBalance,mint,stakeToken,withdrawToken,claimReward} from "../utils/utils"
 import { toast } from 'sonner'
+import ViewButton from '../Components/ViewButton'
 
 const Dashboard = ({wallet,walletConnected}) => {
 
@@ -84,13 +85,15 @@ const Dashboard = ({wallet,walletConnected}) => {
     event.preventDefault()
     await claimReward(wallet,walletConnected)
   }
+  const buttonsBg = "dark:bg-[#4263EB] light-circle"
+  const viewButtonProperties = `${buttonsBg} dark:shadow-none hover border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center`
 
   return (
     <div className='h-screen w-screen flex items-center justify-center p-3 z-20'>
 
       <div className=' h-[95%]  w-[70%] flex flex-col gap-10 items-center justify-center '>
 
-        <div className='shadow-lg dark:bg-black/50 light-circle border-[0.5px] border-slate-300 dark:border-none transition-all duration-500 h-[20%] w-full flex justify-center items-center rounded-3xl'>
+        <div className={`${buttonsBg} shadow-lg  border-[0.5px] border-slate-300 dark:border-none transition-all duration-500 h-[20%] w-full flex justify-center items-center rounded-3xl`}>
          Staking Dapp
         </div>
 
@@ -99,9 +102,9 @@ const Dashboard = ({wallet,walletConnected}) => {
           {/* View functions starts here */}
           <div className=' w-full h-[25%] flex items-center justify-center gap-5'>
 
-              <button onClick={updateTotalStaked} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateTotalStaked} className={`${viewButtonProperties}`}>
 
-                <div className=' font-semibold text-gray-500'>
+                <div className=' font-semibold'>
                   Total Staked Tokens
                 </div>
 
@@ -111,10 +114,10 @@ const Dashboard = ({wallet,walletConnected}) => {
 
               </button>
 
-              <button onClick={updateRewardsRate} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateRewardsRate} className={`${viewButtonProperties}`}>
 
 
-                <div className=' font-semibold text-gray-500'>
+                <div className=' font-semibold'>
                   Reward Rate
                 </div>
 
@@ -124,9 +127,9 @@ const Dashboard = ({wallet,walletConnected}) => {
 
               </button>
 
-              <button onClick={updateUserBal} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateUserBal} className={`${viewButtonProperties}`}>
 
-                <div className=' font-semibold text-gray-500'>
+                <div className=' font-semibold'>
                   Balance
                 </div>
 
@@ -136,9 +139,9 @@ const Dashboard = ({wallet,walletConnected}) => {
 
               </button>
 
-              <button onClick={updateRewardBal} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateRewardBal} className={`${viewButtonProperties}`}>
                 
-                <div className=' font-semibold text-gray-500'>
+                <div className=' font-semibold'>
                   Rewards Accumilated
                 </div>
 
@@ -156,7 +159,7 @@ const Dashboard = ({wallet,walletConnected}) => {
 
             <div className='h-full w-[50%] flex flex-col items-center gap-5 '>
 
-              <form onSubmit={mintTokens} className='flex items-start p-2 justify-start dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full'>
+              <form onSubmit={mintTokens} className={`${buttonsBg} flex items-start p-2 justify-start dark:shadow-2xl border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full`}>
                 <div className='flex h-full w-full flex-col items-start p-2 gap-5'>
                   <input ref={sendMintPrice} type="number" placeholder='Amount To Send' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
                   <input ref={mintVal} type="number" placeholder='Amount To Mint' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
@@ -164,7 +167,7 @@ const Dashboard = ({wallet,walletConnected}) => {
                 <button className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Mint</button>
               </form>
 
-              <form onSubmit={withdrawTokens} className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-between items-center '>
+              <form onSubmit={withdrawTokens} className={`${buttonsBg} dark:shadow-2xl border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-between items-center`}>
                 <input ref={withdrawAmt} type="number" placeholder='Amount To Withdraw' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
                 <button className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Withdraw</button>
               </form>
@@ -172,12 +175,12 @@ const Dashboard = ({wallet,walletConnected}) => {
 
             <div className='h-full w-[50%] flex flex-col items-center gap-5'>
 
-              <form onSubmit={stakeTokens} className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-between items-center '>
+              <form onSubmit={stakeTokens} className={`${buttonsBg} dark:shadow-2xl border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-between items-center`}>
                 <input ref={numberOfStakes} type="number" placeholder='Amount To Stake' className=' bg-transparent rounded-md text-xl  h-30 outline-none remove-arrow'/>
                 <button className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Stake</button>
               </form>
 
-              <form onSubmit={claimRewards} className=' dark:bg-black/50 dark:shadow-2xl light-circle border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center '>
+              <form onSubmit={claimRewards} className={`${buttonsBg} dark:shadow-2xl border-[0.5px] border-slate-300 hover:shadow-inner transition duration-500 dark:border-none h-[50%] w-full flex justify-center items-center`}>
                 <button  className=' dark:dark-rectangle light-rectangle rounded-xl hover:shadow-inner border-slate-300 px-10 py-2 dark:border-black border-[0.5px] transition-all duration-500 cursor-pointer '>Claim Rewards</button>
               </form>
 
@@ -188,7 +191,7 @@ const Dashboard = ({wallet,walletConnected}) => {
 
         </div>
 
-        <div className=' dark:bg-black/50 dark:shadow-none light-circle border-[0.5px] border-slate-300 dark:border-none h-[20%] w-full flex justify-center items-center rounded-3xl'>
+        <div className={`${buttonsBg} dark:shadow-none border-[0.5px] border-slate-300 dark:border-none h-[20%] w-full flex justify-center items-center rounded-3xl`}>
           Social handles /description
         </div>
         

@@ -23,7 +23,7 @@
     }
     .dark-rectangle {
         border-radius: 14px;
-        background: black;
+        background: #4263EB;
         box-shadow:  2px 2px 10px #1f1f1e,
                      -2px -2px 10px #2b2928;
     }
