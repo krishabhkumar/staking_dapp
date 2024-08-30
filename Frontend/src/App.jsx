@@ -2,6 +2,7 @@ import Login from "./Pages/Login"
 import Dashboard from "./Pages/Dashboard"
 import Darkmode from "./Components/Darkmode"
 import Shooting from "./Components/ShootingStars/Shooting"
+import ProtectedRoute from "./Components/ProtectedRoute";
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useState,useEffect } from "react";
@@ -35,7 +36,15 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login settingWallet={settingWallet} />} />
-            <Route path="/Dashboard" element={<Dashboard wallet={wallet} walletConnected={walletConnected}  />} />
+            {/* <Route path="/Dashboard" element={<Dashboard wallet={wallet} walletConnected={walletConnected}  />} /> */}
+            <Route
+              path="/Dashboard"
+              element={
+                <ProtectedRoute walletConnected={walletConnected}>
+                  <Dashboard wallet={wallet} walletConnected={walletConnected} />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Router>
       </div>
