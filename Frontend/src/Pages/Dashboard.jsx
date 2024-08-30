@@ -7,32 +7,59 @@ const Dashboard = ({wallet,walletConnected}) => {
 
   const [viewFunc,setViewFunc] = useState({rewardR:null,totalS:null,userB:null,rewardB:null})
   const [dataFetched,setDataFetched] = useState(false)
+  const [rewardRa,setRewardRa] = useState({dataFetched:false,data:null})
+  const [stakedTo,setStakedTo] = useState({dataFetched:false,data:null})
+  const [userBal,setUserBal] = useState({dataFetched:false,data:null})
+  const [rewardBal,setRewardBal] = useState({dataFetched:false,data:null})
   const mintVal = useRef(null)
   const sendMintPrice = useRef(null)
   const numberOfStakes = useRef(null)
   const withdrawAmt = useRef(null)
 
- useEffect(()=>{
-  
-    const fetchData = async () => {
-      try{
+  const updateRewardsRate = async ()=>{
+    setRewardRa({dataFetched:false})
+    const val = Number(await checkRewardRate(wallet,walletConnected))
+    setRewardRa({dataFetched:true ,data:val})
+  }
 
-        const rewardRate = Number(await checkRewardRate(wallet,walletConnected))
-        const totalStaked = Number(await checkTotalStakedToken(wallet,walletConnected));
-        const userBalance = Number(await checkBalance(wallet,walletConnected));
-        const rewardBal = Number(await checkRewardBalance(wallet,walletConnected));
-  
-        setViewFunc({rewardR:rewardRate,totalS:totalStaked,userB:userBalance,rewardB:rewardBal})
-        setDataFetched(true)
-      }
-      catch(error){
-        toast.error(error)
-      }
+  const updateTotalStaked = async ()=>{
+    setStakedTo({dataFetched:false})
+    const val = Number(await checkTotalStakedToken(wallet,walletConnected));
+    setStakedTo({dataFetched:true ,data:val})
+  }
+
+  const updateUserBal = async ()=>{
+    setUserBal({dataFetched:false})
+    const val = Number(await checkBalance(wallet,walletConnected));
+    setUserBal({dataFetched:true ,data:val})
+  }
+
+  const updateRewardBal = async ()=>{
+    setRewardBal({dataFetched:false})
+    const val = Number(await checkRewardBalance(wallet,walletConnected));
+    setStakedTo({dataFetched:true ,data:val})
+  }
+
+  const fetchData = async () => {
+    setDataFetched(false)
+    try{
+
+      const rewardRate = Number(await checkRewardRate(wallet,walletConnected))
+      const totalStaked = Number(await checkTotalStakedToken(wallet,walletConnected));
+      const userBalance = Number(await checkBalance(wallet,walletConnected));
+      const rewardBal = Number(await checkRewardBalance(wallet,walletConnected));
+
+      setViewFunc({rewardR:rewardRate,totalS:totalStaked,userB:userBalance,rewardB:rewardBal})
+      setDataFetched(true)
     }
+    catch(error){
+      toast.error(error)
+    }
+  }
 
-    // rewardRate.wait()
-    fetchData()
-  },[])
+  // useEffect(()=>{
+  //   fetchData()
+  // },[])
   
   const mintTokens = async () =>{
     event.preventDefault()
@@ -72,19 +99,19 @@ const Dashboard = ({wallet,walletConnected}) => {
           {/* View functions starts here */}
           <div className=' w-full h-[25%] flex items-center justify-center gap-5'>
 
-              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateTotalStaked} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
 
                 <div className=' font-semibold text-gray-500'>
                   Total Staked Tokens
                 </div>
 
                 <div>
-                  {dataFetched ? viewFunc.totalS : "Loading..."}
+                  { stakedTo.dataFetched ? stakedTo.data : null}
                 </div>
 
-              </div>
+              </button>
 
-              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateRewardsRate} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
 
 
                 <div className=' font-semibold text-gray-500'>
@@ -92,34 +119,34 @@ const Dashboard = ({wallet,walletConnected}) => {
                 </div>
 
                 <div>
-                  {dataFetched ? viewFunc.rewardR : "Loading..."}
+                  {rewardRa.dataFetched ? rewardRa.data : null}
                 </div>
 
-              </div>
+              </button>
 
-              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateUserBal} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
 
                 <div className=' font-semibold text-gray-500'>
                   Balance
                 </div>
 
                 <div>
-                  {dataFetched ? viewFunc.userB : "Loading..."}
+                  { userBal.dataFetched ? userBal.data : null}
                 </div>
 
-              </div>
+              </button>
 
-              <div className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
+              <button onClick={updateRewardBal} className='dark:bg-black/50 dark:shadow-none hover light-circle border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center'>
                 
                 <div className=' font-semibold text-gray-500'>
                   Rewards Accumilated
                 </div>
 
                 <div>
-                  {dataFetched ? viewFunc.rewardB : "Loading..."}
+                  {rewardBal.dataFetched ? rewardBal.data : null}
                 </div>
 
-              </div>
+              </button>
 
           </div>
           {/* View functions ends here */}
