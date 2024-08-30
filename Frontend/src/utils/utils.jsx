@@ -1,4 +1,11 @@
 import { toast } from "sonner";
+import { ethers } from "ethers";
+
+
+const getProvider = async() =>{
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  return provider
+}
 
 // Mint function 
 export const checkPriceOfOneToken = async (wallet, walletConnected) => {
@@ -29,6 +36,8 @@ export const checkTotalStakedToken = async (wallet, walletConnected) => {
 }; 
 
 export const checkRewardRate = async ( wallet,walletConnected) => {
+  const provider = getProvider()
+  console.log(provider)
   if (walletConnected) {
     try {
       const rewardRate = await wallet.contract.REWARD_RATE();
@@ -88,15 +97,20 @@ export const totalEarnedReward = async (wallet, walletConnected) => {
 
 export const mint = async (wallet, walletConnected,mValue,mintPrice) => {
   if (walletConnected) {
-    // const amount =   // msg.value , amount
-    try {
-      const tx = await wallet.contract.mintStakeToken(mValue,{value:mintPrice});
-      await tx.wait();
-      toast.success("Minted tokens successfully");
-    } catch (error) {
-      console.error(error)
-      toast.error(error.reason)
-     }
+    const mintPromise = async () => {
+      try {
+        const tx = await wallet.contract.mintStakeToken(mValue, { value: mintPrice });
+        await tx.wait();
+        return { name: 'Mint' }; // the success data to display
+      } catch (error) {
+        throw error; // rethrow error to handle it in the toast.promise
+      }
+    };
+    toast.promise(mintPromise(), {
+      loading: 'Minting tokens...',
+      success: (data) => `${data.name}ed tokens successfully!`,
+      error: (error) => `Error: ${error.reason || 'Transaction failed'}`,
+    });
   } else {
     toast.error("Please Connect your wallet.");
   }
@@ -104,14 +118,21 @@ export const mint = async (wallet, walletConnected,mValue,mintPrice) => {
 
 export const stakeToken = async (wallet, walletConnected,stakeVal) => {
   if (walletConnected) {
-     try {
-      const tx = await wallet.contract.stake(stakeVal);
-      await tx.wait();
-      toast.success("Staked tokens successfully");  
-     } catch (error) {
-      console.log(error)
-      toast.error(error.reason)
-     }
+    const stakePromise =async ()=>{
+      try {
+       const tx = await wallet.contract.stake(stakeVal);
+       await tx.wait(); 
+       return {name : 'Staked tokens successfully'}
+      } catch (error) {
+        throw error
+      }
+    }
+
+    toast.promise(stakePromise(),{
+      loading: 'Staking Tokens...',
+      success: (data)=>`${data.name}`,
+      error: (error) =>`Error: ${error.reason || 'Transaction failed'}`
+    })
   } else {
     toast.error("Please Connect your wallet.");
   }
@@ -119,14 +140,21 @@ export const stakeToken = async (wallet, walletConnected,stakeVal) => {
 
 export const withdrawToken = async (wallet, walletConnected,withdrawVal) => {
   if (walletConnected) {
-     try {
-      const tx = await wallet.contract.withdraw(withdrawVal);
-      await tx.wait();
-      toast.success("Withdrawn tokens successfully");  
-     } catch (error) {
-      console.error(error)
-      toast.error(error);
-     }
+    const withdrawPromise =async ()=>{
+      try {
+       const tx = await wallet.contract.withdraw(withdrawVal);
+       await tx.wait();
+      return {name: "Withdrawn tokens successfully"}  
+      } catch (error) {
+        throw error
+      }
+    }
+    toast.promise(withdrawPromise(),{
+      loading: 'Withdrawing Tokens...',
+      success: (data)=>`${data.name}`,
+      error: (error) =>`Error: ${error.reason || 'Transaction failed'}`
+    }) 
+
   } else {
     toast.error("Please Connect your wallet.");
   }
@@ -134,14 +162,20 @@ export const withdrawToken = async (wallet, walletConnected,withdrawVal) => {
 
 export const claimReward = async (wallet, walletConnected) => {
   if (walletConnected) {
-     try {
-      const tx = await wallet.contract.claimReward();
-      await tx.wait();
-      toast.success("Rewards Claimed successfully");  
-     } catch (error) {
-      console.table(error)
-      toast.error(error);
-     }
+    const claimPromise =async()=>{
+      try {
+       const tx = await wallet.contract.claimReward();
+       await tx.wait();
+       return {name: "Claimed rewards successfully"}
+      } catch (error) {
+       throw error
+      }
+    }
+    toast.promise(claimPromise(),{
+      loading: 'Claiming Rewards...',
+      success: (data)=>`${data.name}`,
+      error: (error) =>`Error: ${error.reason || 'Transaction failed'}`
+    }) 
   } else {
     toast.error("Please Connect your wallet.");
   }
