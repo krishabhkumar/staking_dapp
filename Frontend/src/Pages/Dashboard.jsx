@@ -38,7 +38,7 @@ const Dashboard = ({wallet,walletConnected,settingWallet}) => {
   const updateRewardBal = async ()=>{
     setRewardBal({dataFetched:false})
     const val = Number(await checkRewardBalance(wallet,walletConnected));
-    setStakedTo({dataFetched:true ,data:val})
+    setRewardBal({dataFetched:true ,data:val})
   }
 
   const fetchData = async () => {
