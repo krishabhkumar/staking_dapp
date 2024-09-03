@@ -1,9 +1,11 @@
+import { toast } from "sonner";
 import {CiLogout} from "./Icons"
 
 const Logout = ({settingWallet}) => {
 
   const disconnect = () =>{
-    settingWallet(null,null,null,false)
+    settingWallet(null,null,null,false);
+    toast.error("Metamask Disconnected");
   }
 
   return (
