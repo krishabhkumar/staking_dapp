@@ -111,6 +111,7 @@ const Dashboard = ({ wallet, walletConnected, settingWallet }) => {
     const withdrawVal = withdrawAmt.current.value;
     await withdrawToken(wallet, walletConnected, withdrawVal);
   };
+   
 
   const claimRewards = async () => {
     event.preventDefault();
