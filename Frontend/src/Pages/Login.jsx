@@ -4,15 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import abi from "../contract/abi.json";
 import { toast } from "sonner";
-import { config } from "dotenv";
 import stake from "../assets/stake.png";
 
 const Login = ({ settingWallet }) => {
-  const contractAdd = "0x100d8fbb4F672DF8f5b3e16375402F7C9CA21FAf";
-  //const contractAdd = process.env.REACT_APP_CONTRACT_ADDRESS;
-  //console.log(contractAdd);
-
-
+  const contractAdd = process.env.REACT_APP_CONTRACT_ADDRESS;
   const navigate = useNavigate();
 
   const connectWallet = async () => {
@@ -62,14 +57,9 @@ const Login = ({ settingWallet }) => {
 
         {/* This is right side */}
         <div className=" h-full w-[50%] p-3 flex items-center justify-center">
-          <div className="flex flex-col items-center justify-center gap-3 p-3 bg-slate-50 dark:bg-black/40  w-[70%] h-full rounded-2xl shadow-2xl  ">
+          <div className="flex flex-col items-center justify-center gap-3 p-3 bg-slate-50 dark:bg-black/40  w-[70%] h-full rounded-2xl shadow-2xl dark:ring-1 dark:ring-[#4263EB]">
             <div>
-              <img
-                src={stake}
-                alt="Logo"
-                className="w-40 h-40 mb-2"
-              />
-              
+              <img src={stake} alt="Logo" className="w-52 h-52  mb-2" />
             </div>
 
             <button
