@@ -117,8 +117,9 @@ const Dashboard = ({ wallet, walletConnected, settingWallet }) => {
     event.preventDefault();
     await claimReward(wallet, walletConnected);
   };
+  // dark:bg-[#4263EB]
   //const buttonsBg = "dark:bg-gradient-to-t from-[#040921] to-transparent";
-  const buttonsBg = "dark:bg-[#4263EB] light-circle";
+  const buttonsBg = "dark:bg-[#252423]/80 light-circle";
   const viewButtonProperties = `${buttonsBg} dark:shadow-none hover border-[0.5px] border-slate-300 dark:border-none rounded-3xl h-full w-[25%] flex flex-col items-center justify-center`;
 
   return (
